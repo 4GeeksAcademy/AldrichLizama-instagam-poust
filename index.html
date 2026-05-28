@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuevo Inicio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="main-container">
+    <header class="header">
+      <div class="left">
+        <div class="profile-pic" aria-label="Foto de perfil"></div>
+        <div class="user-data">
+          <strong class="username">usuario_ejemplo</strong>
+          <span class="location">Altadena, California</span>
+        </div>
+      </div>
+
+      <button class="menu-btn" aria-label="Menu">&#8942;</button>
+    </header>
+
+    <section class="image-container" aria-label="Imagen de la publicacion">
+      <img src="https://i.postimg.cc/rs62dsLr/image.png" alt="Imagen de la publicacion" />
+    </section>
+
+    <section class="post-actions" aria-label="Acciones de la publicacion">
+      <div class="actions-left">
+        <button class="icon-btn" id="like-button" aria-label="Me gusta">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <button class="icon-btn" aria-label="Comentar">
+          <i class="fa-regular fa-comment"></i>
+        </button>
+        <button class="icon-btn" aria-label="Compartir">
+          <i class="fa-regular fa-paper-plane"></i>
+        </button>
+      </div>
+
+      <button class="icon-btn" aria-label="Guardar">
+        <i class="fa-regular fa-bookmark"></i>
+      </button>
+    </section>
+
+    <section class="likes-row" aria-label="Conteo de likes">
+      <strong class="likes-heart">&#9829;</strong>
+      <strong id="likes-count">0</strong>
+      <span>Likes</span>
+    </section>
+
+    <section class="comments-section" aria-label="Sección de comentarios">
+      <p>
+        <a href="#" class="comment-user"><strong>usuario_ejemplo</strong></a>
+        Lorem ipsum dolor sit amet, <a href="#">#augue</a> <a href="#">#adipiscing</a> <a href="#">#elit</a>, <a href="#">#do</a> <a href="#">#eiusmod</a> <a href="#">#tempor</a>.
+      </p>
+    </section>
+  </div>
+
+  <script>
+    const likeButton = document.getElementById("like-button");
+    const likesCount = document.getElementById("likes-count");
+    let totalLikes = 0;
+
+    likeButton.addEventListener("click", () => {
+      totalLikes += 1;
+      likesCount.textContent = totalLikes;
+    });
+  </script>
+</body>
+</html>
