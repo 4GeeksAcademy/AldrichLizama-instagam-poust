@@ -30,7 +30,7 @@
         <button class="icon-btn" id="like-button" aria-label="Me gusta">
           <i class="fa-regular fa-heart"></i>
         </button>
-        <button class="icon-btn" aria-label="Comentar">
+        <button class="icon-btn" id="comment-button" aria-label="Comentar">
           <i class="fa-regular fa-comment"></i>
         </button>
         <button class="icon-btn" aria-label="Compartir">
@@ -38,7 +38,7 @@
         </button>
       </div>
 
-      <button class="icon-btn" aria-label="Guardar">
+      <button class="icon-btn" id="save-button" aria-label="Guardar" aria-pressed="false">
         <i class="fa-regular fa-bookmark"></i>
       </button>
     </section>
@@ -50,21 +50,78 @@
     </section>
 
     <section class="comments-section" aria-label="Sección de comentarios">
-      <p>
+      <p id="default-comment">
         <a href="#" class="comment-user"><strong>usuario_ejemplo</strong></a>
         Lorem ipsum dolor sit amet, <a href="#">#augue</a> <a href="#">#adipiscing</a> <a href="#">#elit</a>, <a href="#">#do</a> <a href="#">#eiusmod</a> <a href="#">#tempor</a>.
       </p>
+
+      <div id="comments-list" aria-live="polite"></div>
+
+      <form id="comment-form" class="comment-form" aria-label="Agregar comentario">
+        <input
+          id="comment-input"
+          type="text"
+          placeholder="Escribe un comentario..."
+          maxlength="180"
+          aria-label="Nuevo comentario"
+          required
+        />
+        <button type="submit" class="comment-submit">Publicar</button>
+      </form>
     </section>
   </div>
 
   <script>
     const likeButton = document.getElementById("like-button");
+    const commentButton = document.getElementById("comment-button");
+    const saveButton = document.getElementById("save-button");
+    const commentForm = document.getElementById("comment-form");
+    const commentInput = document.getElementById("comment-input");
+    const defaultComment = document.getElementById("default-comment");
+    const commentsList = document.getElementById("comments-list");
     const likesCount = document.getElementById("likes-count");
+    const saveIcon = saveButton.querySelector("i");
     let totalLikes = 0;
+
+    commentsList.hidden = true;
 
     likeButton.addEventListener("click", () => {
       totalLikes += 1;
       likesCount.textContent = totalLikes;
+    });
+
+    saveButton.addEventListener("click", () => {
+      const isSaved = saveIcon.classList.toggle("fa-solid");
+      saveIcon.classList.toggle("fa-regular", !isSaved);
+      saveButton.setAttribute("aria-pressed", String(isSaved));
+    });
+
+    commentButton.addEventListener("click", () => {
+      const isOpen = commentForm.classList.toggle("is-open");
+      commentsList.hidden = !isOpen;
+
+      if (isOpen) {
+        commentInput.focus();
+      } else {
+        commentInput.blur();
+      }
+    });
+
+    commentForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const commentText = commentInput.value.trim();
+
+      if (!commentText) {
+        return;
+      }
+
+      const comment = document.createElement("p");
+      comment.innerHTML = '<a href="#" class="comment-user"><strong>usuario_ejemplo</strong></a> ';
+      comment.append(document.createTextNode(commentText));
+      commentsList.appendChild(comment);
+
+      commentForm.reset();
+      commentInput.focus();
     });
   </script>
 </body>
